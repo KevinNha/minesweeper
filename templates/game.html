@@ -1,9 +1,30 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>Mine Sweeper - {( data_body.difficulty }}</title>
+<title>Mine Sweeper - {{ data_body.difficulty }}</title>
+<style>
+    .game_board {
+        width: 75vmin;
+        height: 75vmin;
+        display: grid;
+        grid-template-rows: repeat({{ data_body.field_size }}, 1fr);
+        grid-template-columns: repeat({{ data_body.field_size }}, 1fr);
+        background-color: rgb(178, 178, 178);
+        border: 0.5px solid black;
+    }
+
+    .game_square {
+        border: 0.5px solid rgb(82, 82, 82);
+    }
+</style>
 {% endblock %}
 
 {% block body %}
-<h1>{{ data_body.difficulty }}</h1>
+<div class="main_container">
+    <div class="game_board">
+        {% for index in range(data_body.field_size * data_body.field_size) %}
+        <div class=game_square></div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

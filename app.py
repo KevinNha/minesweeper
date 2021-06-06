@@ -3,6 +3,12 @@ import requests
 
 app = Flask(__name__)
 
+number_of_tiles = {
+    "easy" : 10,
+    "medium" : 20,
+    "hard" : 25
+}
+
 @app.route('/', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
@@ -17,7 +23,8 @@ def index():
 @app.route('/play_<difficulty>')
 def choose_difficulty(difficulty):
     data_body = {
-        "difficulty" : difficulty,
+        "difficulty" : difficulty.title(),
+        "field_size" : number_of_tiles[difficulty]
     }
     return render_template('game.html', data_body=data_body)
 
