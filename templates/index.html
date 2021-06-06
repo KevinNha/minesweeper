@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Mine Sweeper</title>
+{% endblock %}
+
+{% block body %}
+<form actions='/' method='POST'>
+    <button name='difficulty_button' value='easy'>Easy</button>
+    <button name='difficulty_button' value='medium'>Medium</button>
+    <button name='difficulty_button' value='hard'>Hard</button>
+</form>
+{% endblock %}
