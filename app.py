@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template
+from flask import Flask, json, request, redirect, render_template, jsonify
 import requests
 
 app = Flask(__name__)
@@ -27,6 +27,12 @@ def choose_difficulty(difficulty):
         "field_size" : number_of_tiles[difficulty]
     }
     return render_template('game.html', data_body=data_body)
+
+@app.route('/postMoveData', methods=['POST'])
+def postMoveData():
+    if not request.json:
+        print("Error: 400")
+    return jsonify(request.json)
 
 if __name__ == '__main__':
     app.run(debug=True)
