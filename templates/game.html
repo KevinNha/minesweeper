@@ -3,7 +3,7 @@
 {% block head %}
 <title>Mine Sweeper - {{ data_body.difficulty }}</title>
 <style>
-    .game_board {
+    #game_board {
         width: 75vmin;
         height: 75vmin;
         display: grid;
@@ -17,15 +17,17 @@
         border: 0.5px solid rgb(82, 82, 82);
         font-size: 20pt;
         color: black;
+        background-image: url("static/images/dirt.jpg");
+        background-size: cover;
     }
 </style>
 {% endblock %}
 
 {% block body %}
 <div class="main_container">
-    <div class="game_board">
+    <div id="game_board">
         {% for index in range(data_body.field_size * data_body.field_size) %}
-        <div class="game_square" id="game_square_{{ index }}" onclick="show_number({{index}})"></div>
+        <div class="game_square" id="game_square_{{ index }}" onmousedown="handleClick({{ index }}, event)"></div>
         {% endfor %}
     </div>
 </div>
