@@ -1,4 +1,5 @@
 from flask import Flask, json, request, redirect, render_template, jsonify
+from helper_functions import get_mine_positions
 import requests
 
 app = Flask(__name__)
@@ -22,9 +23,11 @@ def index():
 
 @app.route('/play_<difficulty>')
 def choose_difficulty(difficulty):
+    global DIFFICULTY
+    DIFFICULTY = difficulty
     data_body = {
         "difficulty" : difficulty.title(),
-        "field_size" : number_of_tiles[difficulty]
+        "field_size" : number_of_tiles[difficulty],
     }
     return render_template('game.html', data_body=data_body)
 
@@ -33,6 +36,10 @@ def postMoveData():
     if not request.json:
         print("Error: 400")
     return jsonify(request.json)
+
+@app.route('/setMines', methods=['GET'])
+def setMines():
+    return get_mine_positions(DIFFICULTY)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -2,6 +2,10 @@ document.getElementById("game_board").addEventListener('contextmenu', e => {
     e.preventDefault();
 });
 
+$( document ).ready(() => {
+    placeMines()
+})
+
 function handleClick(index, event) {
     data = {"index" : index}
     if (event.button == 0) {
@@ -11,6 +15,19 @@ function handleClick(index, event) {
     }
     updateSquare(data)
 }
+
+function placeMines() {
+    $.ajax({
+        type: 'GET',
+        url: '/setMines',
+        contentType: 'application/json',
+        success: function(return_data) {
+            console.log(return_data)
+        },
+        error: function() {
+            alert('error sending data');
+        }
+    });}
 
 function updateSquare(data) {
     var square = data["index"];
@@ -26,17 +43,4 @@ function updateSquare(data) {
             game_square.addClass("game_square")
         }
     }
-
-    // $.ajax({
-    //     type: 'POST',
-    //     url: '/postMoveData',
-    //     contentType: 'application/json',
-    //     data: JSON.stringify(data),
-    //     success: function(return_data) {
-    //         console.log(return_data)
-    //     },
-    //     error: function() {
-    //         alert('error sending data');
-    //     }
-    // });
 }
