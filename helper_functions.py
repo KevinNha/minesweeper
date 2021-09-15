@@ -18,5 +18,5 @@ def get_mine_positions(difficulty: str):
     while len(mines) < mine_count:
         num_to_add = randint(0, total_num_squares.get(difficulty))
         if num_to_add not in mines:
-            mines[num_to_add] = "mine"
+            mines[num_to_add] = "bomb"
     return mines
