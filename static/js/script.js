@@ -174,4 +174,5 @@ function check_if_edge(bomb_index, number_of_columns) {
 
 /*
 To do: Set state of game on game off
+To do: Make checked squares unclickable
 */
