@@ -1,0 +1,103 @@
+.game_square {
+    border: 0.5px solid rgb(82, 82, 82);
+    font-size: 20pt;
+    color: black;
+    background-image: url("/static/images/dirt.jpg");
+    background-size: cover;
+}
+
+.flag_square {
+    border: 0.5px solid rgb(82, 82, 82);
+    font-size: 20pt;
+    color: black;
+    background-image: url("/static/images/flag.png");
+    background-size: cover;
+}
+
+.bomb_square {
+    border: 0.5px solid rgb(82, 82, 82);
+    font-size: 20pt;
+    color: black;
+    background-image: url("/static/images/bomb.png");
+    background-size: cover;
+}
+
+.number_1_square {
+    border: 0.5px solid rgb(82, 82, 82);
+    font-size: 20pt;
+    color: black;
+    background-image: url("/static/images/bomb.png");
+    background-size: cover;
+}
+
+.number_1_square {
+    border: 0.5px solid rgb(82, 82, 82);
+    font-size: 20pt;
+    color: black;
+    background-image: url("/static/images/1.png");
+    background-size: cover;
+}
+
+.number_2_square {
+    border: 0.5px solid rgb(82, 82, 82);
+    font-size: 20pt;
+    color: black;
+    background-image: url("/static/images/2.png");
+    background-size: cover;
+}
+
+.number_3_square {
+    border: 0.5px solid rgb(82, 82, 82);
+    font-size: 20pt;
+    color: black;
+    background-image: url("/static/images/3.png");
+    background-size: cover;
+}
+
+.number_4_square {
+    border: 0.5px solid rgb(82, 82, 82);
+    font-size: 20pt;
+    color: black;
+    background-image: url("/static/images/4.png");
+    background-size: cover;
+}
+
+.number_5_square {
+    border: 0.5px solid rgb(82, 82, 82);
+    font-size: 20pt;
+    color: black;
+    background-image: url("/static/images/5.png");
+    background-size: cover;
+}
+
+.number_6_square {
+    border: 0.5px solid rgb(82, 82, 82);
+    font-size: 20pt;
+    color: black;
+    background-image: url("/static/images/6.png");
+    background-size: cover;
+}
+
+.number_7_square {
+    border: 0.5px solid rgb(82, 82, 82);
+    font-size: 20pt;
+    color: black;
+    background-image: url("/static/images/7.png");
+    background-size: cover;
+}
+
+.number_8_square {
+    border: 0.5px solid rgb(82, 82, 82);
+    font-size: 20pt;
+    color: black;
+    background-image: url("/static/images/8.png");
+    background-size: cover;
+}
+
+.empty_square {
+    border: 0.5px solid rgb(82, 82, 82);
+    font-size: 20pt;
+    color: black;
+    background-image: url("/static/images/empty.png");
+    background-size: cover;
+}

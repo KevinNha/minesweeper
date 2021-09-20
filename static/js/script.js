@@ -8,6 +8,11 @@ $( document ).ready(() => {
 
 var bomb_data = {}
 
+var number_of_tiles = {
+    "easy" : 10,
+    "medium" : 20,
+    "hard" : 25
+}
 
 function handleClick(index, event) {
     data = {"index" : index}
@@ -53,6 +58,9 @@ function updateSquare(data) {
             game_square.removeClass()
             game_square.addClass("bomb_square")
             showAllBombs(square)
+        } else {
+            num_bombs = find_num_bombs_in_adjacent_cells(square)
+            console.log(num_bombs)
         }
     }
 }
@@ -92,3 +100,78 @@ function change_image_to_bomb(bomb_index) {
     game_square.removeClass()
     game_square.addClass("bomb_square")
 }
+
+var checked_list = []
+
+function find_num_bombs_in_adjacent_cells(bomb_index) {
+    if (checked_list.includes(bomb_index)) {
+        return
+    }
+    checked_list.push(bomb_index)
+    if (bomb_data[bomb_index] == "bomb") {
+        return
+    }
+
+    var number_of_columns = find_num_columns()
+    var squares_to_check = get_squares_to_check(bomb_index, number_of_columns)
+    var squares_to_check = squares_to_check.filter(square => 
+        square >= 0 && square <= (number_of_columns * number_of_columns)
+    )
+
+    var bombs = 0
+    for (let i = 0; i < squares_to_check.length; i++) {
+        if (bomb_data[squares_to_check[i]] == "bomb") {
+            bombs++
+        }
+    }
+    
+    var game_square = $( "#game_square_" + bomb_index)
+    if (bombs >= 1) {
+        game_square.removeClass()
+        game_square.addClass("number_" + bombs + "_square")
+    } else {
+        game_square.removeClass()
+        game_square.addClass("empty_square")
+        squares_to_check.forEach(find_num_bombs_in_adjacent_cells)
+    }
+}
+
+function find_num_columns() {
+    var page_title = document.title
+    if (page_title.indexOf("Easy") > 0) {
+        return number_of_tiles["easy"]
+    } else if (page_title.indexOf("Medium") > 0) {
+        return number_of_tiles["medium"]
+    } else {
+        return number_of_tiles["hard"]
+    }
+}
+
+function get_squares_to_check(bomb_index, number_of_columns) {
+    var square_edge_status = check_if_edge(bomb_index, number_of_columns)
+    if (square_edge_status == "left_edge") {
+        return [bomb_index + 1, bomb_index - number_of_columns, bomb_index - number_of_columns + 1, bomb_index + number_of_columns, bomb_index + number_of_columns + 1]
+    }
+    if (square_edge_status == "right_edge") {
+        return [bomb_index - 1, bomb_index - number_of_columns, bomb_index - number_of_columns - 1, bomb_index + number_of_columns, bomb_index - number_of_columns + 1]
+    }
+    return squares_to_check = [bomb_index - 1, bomb_index + 1, 
+                               bomb_index - number_of_columns, bomb_index - number_of_columns - 1, bomb_index - number_of_columns + 1, 
+                               bomb_index + number_of_columns, bomb_index + number_of_columns - 1, bomb_index + number_of_columns + 1]
+
+}
+
+function check_if_edge(bomb_index, number_of_columns) {
+    var remainder = bomb_index % number_of_columns
+    if (remainder == 0) {
+        return "left_edge"
+    } else if (remainder == number_of_columns - 1) {
+        return "right_edge"
+    } else {
+        return "no_edge"
+    }
+}
+
+/*
+To do: Set state of game on game off
+*/

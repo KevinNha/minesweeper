@@ -1,8 +1,8 @@
 from random import randint
 num_mines = {
-    "easy": 10,
-    "medium":40,
-    "hard": 99
+    "easy": 20,
+    "medium":60,
+    "hard": 150
 }
 
 total_num_squares = {

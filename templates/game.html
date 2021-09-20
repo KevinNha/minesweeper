@@ -2,6 +2,7 @@
 
 {% block head %}
 <title>Mine Sweeper - {{ data_body.difficulty }}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/game_html.css')}}"">
 <style>
     #game_board {
         width: 75vmin;
@@ -11,30 +12,6 @@
         grid-template-columns: repeat({{ data_body.field_size }}, 1fr);
         background-color: rgb(178, 178, 178);
         border: 0.5px solid black;
-    }
-
-    .game_square {
-        border: 0.5px solid rgb(82, 82, 82);
-        font-size: 20pt;
-        color: black;
-        background-image: url("static/images/dirt.jpg");
-        background-size: cover;
-    }
-
-    .flag_square {
-        border: 0.5px solid rgb(82, 82, 82);
-        font-size: 20pt;
-        color: black;
-        background-image: url("static/images/flag.png");
-        background-size: cover;
-    }
-
-    .bomb_square {
-        border: 0.5px solid rgb(82, 82, 82);
-        font-size: 20pt;
-        color: black;
-        background-image: url("static/images/bomb.png");
-        background-size: cover;
     }
 </style>
 {% endblock %}
