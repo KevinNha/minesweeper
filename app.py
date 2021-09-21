@@ -41,5 +41,9 @@ def postMoveData():
 def setMines():
     return get_mine_positions(DIFFICULTY)
 
+@app.route('/getNumberOfTiles', methods=['GET'])
+def getNumberOfTiles():
+    return number_of_tiles
+
 if __name__ == '__main__':
     app.run(debug=True)

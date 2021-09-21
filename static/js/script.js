@@ -4,14 +4,36 @@ document.getElementById("game_board").addEventListener('contextmenu', e => {
 
 $( document ).ready(() => {
     placeMines()
+    get_number_of_tiles()
 })
 
-var bomb_data = {}
+var GAME_ON
 
-var number_of_tiles = {
-    "easy" : 10,
-    "medium" : 20,
-    "hard" : 25
+var bomb_data = {}
+var checked_list = []
+
+var number_of_tiles = {}
+
+async function get_number_of_tiles() {
+    $.ajax({
+        type: 'GET',
+        url: '/getNumberOfTiles',
+        contentType: 'application/json',
+        success: function(return_data) {
+            number_of_tiles = return_data
+        },
+        error: function() {
+            alert('error sending data');
+        }
+    })
+}
+
+function set_game_on() {
+    GAME_ON = true
+}
+
+function set_game_off() {
+    GAME_ON = false
 }
 
 function handleClick(index, event) {
@@ -25,13 +47,13 @@ function handleClick(index, event) {
 }
 
 function placeMines() {
+    set_game_on()
     $.ajax({
         type: 'GET',
         url: '/setMines',
         contentType: 'application/json',
         success: function(return_data) {
             bomb_data = return_data
-            console.log(bomb_data)
         },
         error: function() {
             alert('error sending data');
@@ -42,6 +64,10 @@ function updateSquare(data) {
     var square = data["index"];
     var click_event = data["button"];
     var game_square = $( "#game_square_" + square)
+
+    if (checked_list.includes(square)) {
+        return
+    }
 
     if (click_event == "right") {
         if (game_square.hasClass("game_square")) {
@@ -60,7 +86,6 @@ function updateSquare(data) {
             showAllBombs(square)
         } else {
             num_bombs = find_num_bombs_in_adjacent_cells(square)
-            console.log(num_bombs)
         }
     }
 }
@@ -100,8 +125,6 @@ function change_image_to_bomb(bomb_index) {
     game_square.removeClass()
     game_square.addClass("bomb_square")
 }
-
-var checked_list = []
 
 function find_num_bombs_in_adjacent_cells(bomb_index) {
     if (checked_list.includes(bomb_index)) {
@@ -153,7 +176,7 @@ function get_squares_to_check(bomb_index, number_of_columns) {
         return [bomb_index + 1, bomb_index - number_of_columns, bomb_index - number_of_columns + 1, bomb_index + number_of_columns, bomb_index + number_of_columns + 1]
     }
     if (square_edge_status == "right_edge") {
-        return [bomb_index - 1, bomb_index - number_of_columns, bomb_index - number_of_columns - 1, bomb_index + number_of_columns, bomb_index - number_of_columns + 1]
+        return [bomb_index - 1, bomb_index - number_of_columns, bomb_index - number_of_columns - 1, bomb_index + number_of_columns, bomb_index - number_of_columns - 1]
     }
     return squares_to_check = [bomb_index - 1, bomb_index + 1, 
                                bomb_index - number_of_columns, bomb_index - number_of_columns - 1, bomb_index - number_of_columns + 1, 
@@ -174,5 +197,5 @@ function check_if_edge(bomb_index, number_of_columns) {
 
 /*
 To do: Set state of game on game off
-To do: Make checked squares unclickable
+To do: Win conditions
 */
