@@ -4,7 +4,7 @@ import requests
 
 app = Flask(__name__)
 
-number_of_tiles = {
+NUMBER_OF_TILES = {
     "easy" : 10,
     "medium" : 20,
     "hard" : 25
@@ -27,7 +27,7 @@ def choose_difficulty(difficulty):
     DIFFICULTY = difficulty
     data_body = {
         "difficulty" : difficulty.title(),
-        "field_size" : number_of_tiles[difficulty],
+        "field_size" : NUMBER_OF_TILES[difficulty],
     }
     return render_template('game.html', data_body=data_body)
 
@@ -43,7 +43,7 @@ def setMines():
 
 @app.route('/getNumberOfTiles', methods=['GET'])
 def getNumberOfTiles():
-    return number_of_tiles
+    return NUMBER_OF_TILES
 
 if __name__ == '__main__':
     app.run(debug=True)
