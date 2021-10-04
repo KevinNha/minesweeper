@@ -1,5 +1,10 @@
 from random import randint
-from app import NUMBER_OF_TILES
+
+NUMBER_OF_TILES = {
+    "easy" : 10,
+    "medium" : 20,
+    "hard" : 25
+}
 
 NUM_MINES = {
     "easy": 14,

@@ -7,8 +7,6 @@ $( document ).ready(() => {
     get_number_of_tiles()
 })
 
-var GAME_ON
-
 var bomb_data = {}
 var checked_list = []
 
@@ -28,12 +26,15 @@ async function get_number_of_tiles() {
     })
 }
 
-function set_game_on() {
-    GAME_ON = true
+function set_game_off(is_game_won) {
+    document.getElementById("game_board").style.pointerEvents = "none"
+    if (is_game_won == false) {
+        show_pop_up(is_game_won)
+    }
 }
 
-function set_game_off() {
-    GAME_ON = false
+function show_pop_up(is_game_won) {
+    // todo : create divs in game.html and just toggle show or not here.
 }
 
 function handleClick(index, event) {
@@ -47,7 +48,6 @@ function handleClick(index, event) {
 }
 
 function placeMines() {
-    set_game_on()
     $.ajax({
         type: 'GET',
         url: '/setMines',
@@ -81,10 +81,12 @@ function updateSquare(data) {
 
     if (click_event == "left" && !game_square.hasClass("flag_square")) {
         if (bomb_data[square] == "bomb") {
+            set_game_off(false)
             game_square.removeClass()
             game_square.addClass("bomb_square")
             showAllBombs(square)
         } else {
+            // Todo: check if every square has been checked that's not a bomb. if so, game is won
             num_bombs = find_num_bombs_in_adjacent_cells(square)
         }
     }

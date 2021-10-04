@@ -1,14 +1,7 @@
 from flask import Flask, json, request, redirect, render_template, jsonify
-from helper_functions import get_mine_positions
-import requests
+from helper_functions import get_mine_positions, NUMBER_OF_TILES
 
 app = Flask(__name__)
-
-NUMBER_OF_TILES = {
-    "easy" : 10,
-    "medium" : 20,
-    "hard" : 25
-}
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
