@@ -9,8 +9,21 @@ $( document ).ready(() => {
 
 var bomb_data = {}
 var checked_list = []
-
 var number_of_tiles = {}
+
+
+function placeMines() {
+    $.ajax({
+        type: 'GET',
+        url: '/setMines',
+        contentType: 'application/json',
+        success: function(return_data) {
+            bomb_data = return_data
+        },
+        error: function() {
+            alert('error sending data');
+        }
+    });}
 
 async function get_number_of_tiles() {
     $.ajax({
@@ -26,17 +39,6 @@ async function get_number_of_tiles() {
     })
 }
 
-function set_game_off(is_game_won) {
-    document.getElementById("game_board").style.pointerEvents = "none"
-    if (is_game_won == false) {
-        show_pop_up(is_game_won)
-    }
-}
-
-function show_pop_up(is_game_won) {
-    // todo : create divs in game.html and just toggle show or not here.
-}
-
 function handleClick(index, event) {
     data = {"index" : index}
     if (event.button == 0) {
@@ -47,18 +49,6 @@ function handleClick(index, event) {
     updateSquare(data)
 }
 
-function placeMines() {
-    $.ajax({
-        type: 'GET',
-        url: '/setMines',
-        contentType: 'application/json',
-        success: function(return_data) {
-            bomb_data = return_data
-        },
-        error: function() {
-            alert('error sending data');
-        }
-    });}
 
 function updateSquare(data) {
     var square = data["index"];
@@ -86,20 +76,13 @@ function updateSquare(data) {
             game_square.addClass("bomb_square")
             showAllBombs(square)
         } else {
-            // Todo: check if every square has been checked that's not a bomb. if so, game is won
-            num_bombs = find_num_bombs_in_adjacent_cells(square)
+            find_num_bombs_in_adjacent_cells(square)
+            var game_squares = document.getElementsByClassName("game_square")
+            if (game_squares.length == 0) {
+                set_game_off(true)
+            }
         }
     }
-}
-
-function findAllBombs() {
-    var bombs = []
-    for(key in bomb_data) {
-        if (bomb_data[key] == 'bomb') {
-            bombs.push(key)
-        }
-    }
-    return bombs
 }
 
 async function showAllBombs(current_square) {
@@ -120,6 +103,17 @@ async function showAllBombs(current_square) {
         bomb_data.splice(random_bomb_index, 1)
         num_bombs = bomb_data.length
     }
+}
+
+
+function findAllBombs() {
+    var bombs = []
+    for(key in bomb_data) {
+        if (bomb_data[key] == 'bomb') {
+            bombs.push(key)
+        }
+    }
+    return bombs
 }
 
 function change_image_to_bomb(bomb_index) {
@@ -195,6 +189,16 @@ function check_if_edge(bomb_index, number_of_columns) {
     } else {
         return "no_edge"
     }
+}
+
+function set_game_off(is_game_won) {
+    document.getElementById("game_board").style.pointerEvents = "none"
+        show_pop_up(is_game_won)
+}
+
+function show_pop_up(is_game_won) {
+    game_message = is_game_won ? "won :)" : "lost :("
+    alert(`Game over! You ${game_message}`)
 }
 
 /*

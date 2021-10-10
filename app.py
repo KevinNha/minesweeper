@@ -1,4 +1,4 @@
-from flask import Flask, json, request, redirect, render_template, jsonify
+from flask import Flask, request, redirect, render_template, jsonify
 from helper_functions import get_mine_positions, NUMBER_OF_TILES
 
 app = Flask(__name__)
