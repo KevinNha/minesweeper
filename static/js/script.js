@@ -78,6 +78,7 @@ function updateSquare(data) {
         } else {
             find_num_bombs_in_adjacent_cells(square)
             var game_squares = document.getElementsByClassName("game_square")
+            // /todo if all none bomb squares checked, set game off
             if (game_squares.length == 0) {
                 set_game_off(true)
             }

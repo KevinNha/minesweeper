@@ -9,7 +9,7 @@ NUMBER_OF_TILES = {
 NUM_MINES = {
     "easy": 14,
     "medium":54,
-    "hard": 144
+    "hard": 100
 }
 
 def get_square(num): 
